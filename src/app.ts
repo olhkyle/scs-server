@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { AuthRouter, UserRouter } from './router';
+import allowedOrigins from './constants/allowedOrigins';
 
 class Server {
 	public app: express.Application;
@@ -46,7 +47,7 @@ class Server {
 			next();
 		});
 
-		this.app.use(cors({ origin: process.env.CLIENT_SIDE_DEV_URL, credentials: true }));
+		this.app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
