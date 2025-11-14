@@ -1,3 +1,3 @@
-# TypeScript-Express-Starter
+# SCS API Server
 
-`typescript` `express` `nodemon` `eslint` `prettier` `ts-node` `dotenv` `cookie-parser` `jsonwebtoken` `bcrypt` `cors`
+`typescript` `express` `nodemon` `eslint` `prettier` `ts-node` `dotenv` `cookie-parser` `jsonwebtoken` `bcrypt` `cors` `prisma` `mongodb`
