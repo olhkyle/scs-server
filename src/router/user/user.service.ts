@@ -1,7 +1,7 @@
-import express from 'express';
-import { prisma } from '../../lib/db';
+import prisma from '../../lib/prismaClient';
+import type { ExpressRequest, ExpressResponse } from '../../types/global';
 
-const getUsers = async (request: express.Request, response: express.Response) => {
+const getUsers = async (request: ExpressRequest, response: ExpressResponse) => {
 	try {
 		console.log(request.baseUrl);
 		const users = await prisma.users.findMany({
