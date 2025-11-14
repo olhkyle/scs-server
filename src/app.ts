@@ -18,8 +18,26 @@ class Server {
 	}
 
 	private setRoute() {
+		const router = express.Router();
+
+		this.app.use(
+			router.get('/', (_, response) => {
+				response.status(200).send({ message: '✅ Successfully connect SCS server' });
+			}),
+		);
+
 		this.app.use(AuthRouter);
 		this.app.use(UserRouter);
+
+		this.app.all('*', (req, res) => {
+			console.log('this is 404 ERROR');
+			res.status(404);
+			if (req.accepts('json')) {
+				res.json({ error: '404 Not Found' });
+			} else {
+				res.type('txt').send('404 Not Found');
+			}
+		});
 	}
 
 	private setMiddleware() {
@@ -46,7 +64,10 @@ class Server {
 	public listen() {
 		this.setMiddleware();
 		this.app.listen(this.port, () => {
-			console.log(`server listening on http://localhost:${this.port}`);
+			console.log(`----- SCS - Spatial Context Strategy -----`);
+			console.log(`----- ✅ Successfully Connected -----`);
+			console.log(`Server listening on http://localhost:${this.port}`);
+			console.log(`----------`);
 		});
 	}
 }
