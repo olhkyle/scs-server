@@ -1,14 +1,14 @@
 import express from 'express';
-import { checkAuth, signIn, signUp } from './auth.service';
+import { checkAuth, signIn, signOut, signUp } from './auth.service';
 
 const router = express.Router();
 
-router.get('/auth', checkAuth);
+router.get('/api/auth', checkAuth);
 
-router.post('/signin', signIn);
+router.post('/api/signin', signIn);
 
-router.post('/signup', signUp);
+router.post('/api/signup', signUp);
 
-router.post('/signout', () => {});
+router.post('/api/signout', signOut);
 
 export default router;
