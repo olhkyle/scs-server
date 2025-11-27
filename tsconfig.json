@@ -3,18 +3,35 @@
 		"target": "esnext",
 		"lib": ["dom", "ESNext"],
 		"module": "commonjs",
-		"moduleResolution": "Node",
+		"moduleResolution": "node",
 		"skipLibCheck": true,
-		"typeRoots": ["./node_modules/@types", "./types"],
-		"allowJs": true,
+		"types": ["node"],
+		"typeRoots": ["./node_modules/@types", "./src/types"],
 		"sourceMap": true,
-		"outDir": "./",
+		"rootDir": "src",
+		"outDir": "dist",
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+
+		// strict settings
 		"strict": true,
+		"strictNullChecks": true,
+		"allowUnusedLabels": false,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"allowUnreachableCode": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": false, // is false bc of some error with next() and other returns
+		"noUncheckedIndexedAccess": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true
 	},
 	"exclude": ["node_modules", "dist"],
-	"includes": ["src/**/*.ts"]
+	"includes": ["src/**/*.ts", "src/types/global.d.ts"]
 }

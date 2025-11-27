@@ -4,18 +4,19 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { AuthRouter, UserRouter } from './router';
 import allowedOrigins from './constants/allowedOrigins';
+import { connectDB } from './lib/mongoose';
 
 class Server {
 	public app: express.Application;
 	public port: number;
 
 	constructor() {
+		dotenv.config();
+
 		const app: express.Application = express();
 
 		this.app = app;
 		this.port = Number(process.env.PORT) || 8000;
-
-		dotenv.config();
 	}
 
 	private setRoute() {
@@ -29,19 +30,9 @@ class Server {
 
 		this.app.use(AuthRouter);
 		this.app.use(UserRouter);
-
-		this.app.all('*', (req, res) => {
-			console.log('this is 404 ERROR');
-			res.status(404);
-			if (req.accepts('json')) {
-				res.json({ error: '404 Not Found' });
-			} else {
-				res.type('txt').send('404 Not Found');
-			}
-		});
 	}
 
-	private setMiddleware() {
+	private async setMiddleware() {
 		this.app.use((req, _, next) => {
 			console.log(`middleware * ${req.rawHeaders[1]}`);
 			next();
@@ -51,7 +42,10 @@ class Server {
 
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
+		this.app.use(express.urlencoded({ extended: true }));
 		this.app.use(cookieParser());
+
+		await connectDB();
 
 		this.setRoute();
 
