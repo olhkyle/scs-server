@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// sustain mongodb pool connection on Vercel / Serverless
 type MongooseCache = {
 	conn: typeof mongoose | null;
 	promise: Promise<typeof mongoose> | null;
@@ -24,6 +25,8 @@ export const connectDB = async () => {
 		cached.promise = mongoose
 			.connect(process.env.MONGODB_URI!, {
 				dbName: process.env.MONGODB_DB_NAME!,
+				maxPoolSize: 20,
+				minPoolSize: 5, // 중요
 			})
 			.then(m => m)
 			.catch(error => {

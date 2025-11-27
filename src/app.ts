@@ -2,8 +2,9 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import dns from 'dns';
 import { AuthRouter, UserRouter } from './router';
-import allowedOrigins from './constants/allowedOrigins';
+import { allowedOrigins } from './constants';
 import { connectDB } from './lib/mongoose';
 
 class Server {
@@ -12,6 +13,7 @@ class Server {
 
 	constructor() {
 		dotenv.config();
+		dns.setDefaultResultOrder('ipv4first');
 
 		const app: express.Application = express();
 
@@ -22,14 +24,14 @@ class Server {
 	private setRoute() {
 		const router = express.Router();
 
+		this.app.use(AuthRouter);
+		this.app.use(UserRouter);
+
 		this.app.use(
 			router.get('/', (_, response) => {
 				response.status(200).send({ message: '✅ Successfully connect SCS server' });
 			}),
 		);
-
-		this.app.use(AuthRouter);
-		this.app.use(UserRouter);
 	}
 
 	private async setMiddleware() {
@@ -51,7 +53,6 @@ class Server {
 
 		// Last 404 Middleare
 		this.app.use((_, res, __) => {
-			console.log('this is 404 ERROR middleware');
 			res.send({ error: '404 Not-Found Error' });
 		});
 	}
@@ -61,7 +62,7 @@ class Server {
 		this.app.listen(this.port, () => {
 			console.log(`----- SCS - Spatial Context Strategy -----`);
 			console.log(`----- ✅ Successfully Connected -----`);
-			console.log(`Server listening on http://localhost:${this.port}`);
+			console.log(`----- Server listening on http://localhost:${this.port} -----`);
 			console.log(`----------`);
 		});
 	}
