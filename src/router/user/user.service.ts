@@ -1,20 +1,20 @@
-import type { ExpressRequest, ExpressResponse, MongoError } from '../../types/global';
-import { User } from '../../models';
+import { type UserType, User } from '../../models';
 
-const getUsers = async (_request: ExpressRequest, response: ExpressResponse) => {
-	try {
-		const users = await User.find();
-		console.log(users);
-		response.status(200).send({ data: users });
-	} catch (error: unknown) {
-		const e = error as MongoError;
+const getUsers = async (): Promise<UserType[]> => {
+	const users = await User.find();
 
-		if (e.code === 11000) {
-			// unique error
-		}
-		console.error('[ERROR] users', error);
-		response.status(500).send({ auth: 'fail' });
-	}
+	return users;
 };
 
-export { getUsers };
+const addUser = async ({ name, email, course }: UserType): Promise<UserType> => {
+	const newUser = await User.create({ name, email, course });
+
+	return newUser;
+};
+
+const deleteUser = async ({ id }: { id: string }) => {
+	console.log(id);
+	return await User.deleteOne({ id });
+};
+
+export { getUsers, addUser, deleteUser };

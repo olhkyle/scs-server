@@ -9,11 +9,13 @@ const UserSchema = new Schema(
 	{ timestamps: true, collection: 'users' },
 );
 
-type UserType = InferSchemaType<typeof UserSchema> & {
+type UserType = InferSchemaType<typeof UserSchema>;
+
+type UserTypeWithId = UserType & {
 	_id: Types.ObjectId;
 };
 
 const User: Model<UserType> = models.User || mongoose.model('User', UserSchema);
 
-export type { UserType };
+export type { UserType, UserTypeWithId };
 export { User };
