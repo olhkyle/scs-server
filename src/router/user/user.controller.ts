@@ -21,10 +21,10 @@ const getUsers = async (_request: ExpressRequest, response: ExpressResponse) => 
 
 const addUser = async (request: ExpressRequest, response: ExpressResponse) => {
 	try {
-		const { name, email, course } = request.body as UserType;
+		const { name, email, course, skills } = request.body as UserType;
 
-		console.log(name, email, course);
-		const newUser = await UserService.addUser({ name, email, course, createdAt: new Date(), updatedAt: new Date() });
+		console.log(name, email, course, skills);
+		const newUser = await UserService.addUser({ name, email, course, createdAt: new Date(), updatedAt: new Date(), skills: { ...skills } });
 
 		response.status(201).send({ data: newUser, message: 'Successfully add user' });
 	} catch (error: unknown) {
