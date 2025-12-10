@@ -41,7 +41,18 @@ class Server {
 			next();
 		});
 
-		this.app.use(cors({ origin: allowedOrigins, credentials: true }));
+		this.app.use(
+			cors({
+				origin: (origin, callback) => {
+					if (!origin || allowedOrigins.includes(origin)) {
+						callback(null, true);
+					} else {
+						callback(new Error('Not allowed by CORS'));
+					}
+				},
+				credentials: true,
+			}),
+		);
 
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
@@ -61,7 +72,7 @@ class Server {
 
 	public listen() {
 		this.setMiddleware();
-		this.app.listen(this.port, () => {
+		this.app.listen(this.port, '0.0.0.0', () => {
 			console.log(`----- SCS - Spatial Context Strategy -----`);
 			console.log(`----- ✅ Successfully Connected -----`);
 			console.log(`----- Server listening on http://localhost:${this.port} -----`);
