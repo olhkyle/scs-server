@@ -15,7 +15,7 @@ const SkillsSchema = new Schema(
 const UserSchema = new Schema(
 	{
 		name: { type: String, required: true },
-		email: { type: String, required: true, unique: true },
+		email: { type: String, required: true },
 		course: { type: String, required: true },
 		skills: {
 			type: SkillsSchema,

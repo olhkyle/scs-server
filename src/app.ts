@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import dns from 'dns';
-import { AuthRouter, UserRouter } from './router';
+import { AuthRouter, NewsRouter, UserRouter } from './router';
 import { allowedOrigins } from './constants';
 import { connectDB } from './lib/mongoose';
 
@@ -26,6 +26,7 @@ class Server {
 
 		this.app.use(AuthRouter);
 		this.app.use(UserRouter);
+		this.app.use(NewsRouter);
 
 		this.app.use(
 			router.get('/', (_, response) => {
