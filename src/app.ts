@@ -49,7 +49,7 @@ class Server {
 
 		this.app.use(cookieParser());
 
-		await connectDB();
+		await connectDB().catch(err => console.error('DB connection error:', err));
 
 		this.setRoute();
 
