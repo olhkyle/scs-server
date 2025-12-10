@@ -4,12 +4,12 @@
 #
 
 app = 'scs-server'
-primary_region = 'sjc'
+primary_region = 'nrt'
 
 [build]
 
 [http_service]
-  internal_port = 3000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
