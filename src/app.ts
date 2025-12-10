@@ -41,18 +41,7 @@ class Server {
 			next();
 		});
 
-		this.app.use(
-			cors({
-				origin: (origin, callback) => {
-					if (!origin || allowedOrigins.includes(origin)) {
-						callback(null, true);
-					} else {
-						callback(new Error('Not allowed by CORS'));
-					}
-				},
-				credentials: true,
-			}),
-		);
+		this.app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 		this.app.use(express.static('public'));
 		this.app.use(express.json());
