@@ -1,0 +1,1 @@
+{"version":3,"file":"allowedOrigins.js","sourceRoot":"","sources":["../../src/constants/allowedOrigins.ts"],"names":[],"mappings":";;AAAA,MAAM,cAAc,GAAG,CAAC,OAAO,CAAC,GAAG,CAAC,mBAAmB,EAAE,OAAO,CAAC,GAAG,CAAC,0BAA0B,CAAC,CAAC,MAAM,CAAC,CAAC,GAAG,EAAiB,EAAE,CAAC,CAAC,CAAC,GAAG,CAAC,CAAC;AAEvI,kBAAe,cAAc,CAAC"}

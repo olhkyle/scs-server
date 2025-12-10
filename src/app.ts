@@ -18,7 +18,7 @@ class Server {
 		const app: express.Application = express();
 
 		this.app = app;
-		this.port = Number(process.env.PORT) || 3000;
+		this.port = Number(process.env.PORT) || 8080;
 	}
 
 	private setRoute() {
